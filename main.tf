@@ -73,7 +73,7 @@ module "alb" {
       target_type      = "instance"
       targets = {
         my_target = {
-          target_id = "i-0448c718e9107ecc0"
+          target_id = aws_instance.blog_new.id
           port = 80
         }
       }
