@@ -47,6 +47,7 @@ resource "aws_instance" "blog" {
 
 module "alb" {
   source = "terraform-aws-modules/alb/aws"
+  version = "~> 6.0"
 
   name            = "blog-alb"
   vpc_id          = module.blog_vpc.vpc_id
@@ -73,7 +74,7 @@ module "alb" {
       target_type      = "instance"
       targets = {
         my_target = {
-          target_id = aws_instance.blog_new.id
+          target_id = aws_instance.blog.id
           port = 80
         }
       }
