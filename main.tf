@@ -71,7 +71,8 @@ module "alb" {
     }
   }
 
-  target_groups = [
+  target_groups = 
+    {
       name_prefix      = "blog-"
       backend_protocol = "HTTP"
       backend_port     = 80
@@ -82,7 +83,7 @@ module "alb" {
           port = 80
         }
       }
-  ]
+    }
 
   tags = {
     Environment = "Development"
