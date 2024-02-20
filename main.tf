@@ -54,6 +54,21 @@ module "alb" {
   subnets            = module.blog_vpc.public_subnets
   security_groups    = [module.blog_sg.security_group_id]
 
+    target_groups = {
+    ex-instance = {
+      name_prefix      = "h1"
+      protocol         = "HTTP"
+      port             = 80
+      target_type      = "instance"
+      targets = {
+        my_target = {
+          target_id = aws_instance.blog.id
+          port = 80
+        }
+      }
+    }
+  }
+
   listeners = {
     ex-http-https-redirect = {
       port     = 80
@@ -71,21 +86,6 @@ module "alb" {
 
       forward = {
         target_group_key = "ex-instance"
-      }
-    }
-  }
-
-  target_groups = {
-    ex-instance = {
-      name_prefix      = "h1"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "instance"
-      targets = {
-        my_target = {
-          target_id = aws_instance.blog.id
-          port = 80
-        }
       }
     }
   }
